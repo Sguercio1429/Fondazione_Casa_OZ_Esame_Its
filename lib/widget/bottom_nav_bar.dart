@@ -17,6 +17,8 @@ class BottomNavBar extends StatelessWidget {
     'Profilo',
   ];
 
+  BottomNavBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<BottomNavController>(context);
