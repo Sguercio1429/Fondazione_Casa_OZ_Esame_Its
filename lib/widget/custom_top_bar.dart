@@ -1,30 +1,56 @@
 import 'package:flutter/material.dart';
 
 class CustomTopBar extends StatelessWidget implements PreferredSizeWidget {
-  final Color backgroundColor;
-  final double height;
+  final bool showActions;
+  final VoidCallback? onLogout;
+  final VoidCallback? onNotification;
 
   const CustomTopBar({
     super.key,
-    this.backgroundColor = const Color(0xFF009E3D),
-    this.height = kToolbarHeight,
+    this.showActions = false,
+    this.onLogout,
+    this.onNotification,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: backgroundColor,
-      centerTitle: true,
-      title: Image.asset(
-        'assets/icons/logo.png',
-        height: 36,
-        color: backgroundColor == Colors.white ? const Color(0xFF20763A) : Colors.white,
+      backgroundColor: const Color(0xFF009E3D),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          showActions
+              ? GestureDetector(
+            onTap: onLogout,
+            child: Image.asset(
+              'assets/icons/logout.png',
+              width: 24,
+              height: 24,
+            ),
+          )
+              : const SizedBox(width: 24),
+          Image.asset(
+            'assets/icons/logo.png',
+            width: 40,
+            height: 40,
+            color: Colors.white,
+          ),
+          showActions
+              ? GestureDetector(
+            onTap: onNotification,
+            child: Image.asset(
+              'assets/icons/notification.png',
+              width: 24,
+              height: 24,
+            ),
+          )
+              : const SizedBox(width: 24),
+        ],
       ),
-      elevation: 0,
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(height);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

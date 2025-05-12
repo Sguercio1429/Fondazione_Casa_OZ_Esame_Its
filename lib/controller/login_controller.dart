@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import '../screens/login_screen.dart';
 import '../widget/main_page.dart';
 
 class LoginController extends ChangeNotifier {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
   Future<void> signInWithCredentials(BuildContext context) async {
     final email = emailController.text.trim();
@@ -24,17 +22,14 @@ class LoginController extends ChangeNotifier {
     }
   }
 
-  Future<void> signInWithGoogle(BuildContext context) async {
-    try {
-      final account = await _googleSignIn.signIn();
-      if (account != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const MainPage()),
-        );
-      }
-    } catch (e) {
-      print('Errore login Google: $e');
-    }
+  void logout(BuildContext context) {
+    emailController.clear();
+    passwordController.clear();
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => const LoginScreen()),
+          (route) => false,
+    );
   }
 }

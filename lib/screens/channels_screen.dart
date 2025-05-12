@@ -7,7 +7,7 @@ class ChannelsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomTopBar(),
+      appBar: CustomTopBar(),
       body: const Center(child: Text('Channels')),
     );
   }

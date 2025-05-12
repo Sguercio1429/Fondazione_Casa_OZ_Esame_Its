@@ -20,7 +20,7 @@ class ResourcesScreen extends StatelessWidget {
     List.generate(6, (_) => 'assets/icons/resources.png');
 
     return Scaffold(
-      appBar: const CustomTopBar(),
+      appBar: CustomTopBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
