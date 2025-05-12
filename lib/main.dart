@@ -1,44 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'controller/bottom_nav_controller.dart';
-import 'widget/bottom_nav_bar.dart';
-import 'screens/home_screen.dart';
-import 'screens/resources_screen.dart';
-import 'screens/channels_screen.dart';
-import 'screens/profile_screen.dart';
+import 'controller/login_controller.dart';
+import 'screens/login_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => BottomNavController(),
-      child: MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => BottomNavController()),
+        ChangeNotifierProvider(create: (_) => LoginController()),
+      ],
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MainPage(),
+        home: LoginScreen(),
       ),
-    );
-  }
-}
-
-class MainPage extends StatelessWidget {
-  final List<Widget> screens = [
-    HomeScreen(),
-    ResourcesScreen(),
-    ChannelsScreen(),
-    ProfileScreen(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    final controller = Provider.of<BottomNavController>(context);
-
-    return Scaffold(
-      body: screens[controller.selectedIndex],
-      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

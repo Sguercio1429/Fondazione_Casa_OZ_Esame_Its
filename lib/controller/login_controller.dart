@@ -1,45 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../screens/home_screen.dart';
+import '../widget/main_page.dart';
 
 class LoginController extends ChangeNotifier {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-  GoogleSignInAccount? _user;
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  GoogleSignInAccount? get user => _user;
-
-  Future<void> signInWithGoogle(BuildContext context) async {
-    final navigator = Navigator.of(context);
-    try {
-      final account = await _googleSignIn.signIn();
-      if (account != null) {
-        _user = account;
-        notifyListeners();
-        navigator.pushReplacement(
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
-        );
-      }
-    } catch (e) {
-      debugPrint('Errore durante il login con Google: $e');
-    }
-  }
-
-  void signInWithCredentials(BuildContext context) {
-    final navigator = Navigator.of(context);
+  Future<void> signInWithCredentials(BuildContext context) async {
     final email = emailController.text.trim();
-    final password = passwordController.text.trim();
+    final password = passwordController.text;
 
-    if (email == 'test@example.com' && password == 'password123') {
-      navigator.pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+    if (email == 'prova@gmail.com' && password == 'prova123') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const MainPage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Email o password non validi')),
+        const SnackBar(content: Text('Email o password errati')),
       );
+    }
+  }
+
+  Future<void> signInWithGoogle(BuildContext context) async {
+    try {
+      final account = await _googleSignIn.signIn();
+      if (account != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const MainPage()),
+        );
+      }
+    } catch (e) {
+      print('Errore login Google: $e');
     }
   }
 }

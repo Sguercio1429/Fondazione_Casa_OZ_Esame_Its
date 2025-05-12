@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widget/custom_button.dart';
+import '../widget/custom_top_bar.dart';
 
 class ResourcesScreen extends StatelessWidget {
   const ResourcesScreen({super.key});
@@ -15,13 +16,11 @@ class ResourcesScreen extends StatelessWidget {
       'Menù',
     ];
 
-    final List<String> iconPaths = List.generate(6, (_) => 'assets/icons/resources.png'); // Usa icone diverse se disponibili
+    final List<String> iconPaths =
+    List.generate(6, (_) => 'assets/icons/resources.png');
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Risorse'),
-        backgroundColor: const Color(0xFF009E3D),
-      ),
+      appBar: const CustomTopBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

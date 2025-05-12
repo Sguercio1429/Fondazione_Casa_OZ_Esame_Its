@@ -9,11 +9,11 @@ class PasswordInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      obscureText: true,
       decoration: const InputDecoration(
         labelText: 'Password',
         border: OutlineInputBorder(),
       ),
+      obscureText: true,
     );
   }
 }
