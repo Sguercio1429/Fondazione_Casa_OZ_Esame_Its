@@ -30,6 +30,7 @@ class CustomTopBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           )
               : const SizedBox(width: 24),
+
           Image.asset(
             'assets/icons/logo.png',
             width: 40,
@@ -37,12 +38,20 @@ class CustomTopBar extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.white,
           ),
           showActions
-              ? GestureDetector(
-            onTap: onNotification,
-            child: Image.asset(
-              'assets/icons/notification.png',
-              width: 24,
-              height: 24,
+              ? Builder(
+            builder: (context) => GestureDetector(
+              onTap: () {
+                if (onNotification != null) {
+                  onNotification!();
+                } else {
+                  Scaffold.of(context).openEndDrawer();
+                }
+              },
+              child: Image.asset(
+                'assets/icons/notification.png',
+                width: 24,
+                height: 24,
+              ),
             ),
           )
               : const SizedBox(width: 24),
