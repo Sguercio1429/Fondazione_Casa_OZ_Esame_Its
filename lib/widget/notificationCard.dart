@@ -3,72 +3,72 @@ import 'package:flutter/material.dart';
 class NotificationCard extends StatelessWidget {
   final String sender;
   final String message;
-  final VoidCallback onClose;
+  final bool expanded;
+  final VoidCallback? onRemove;
 
   const NotificationCard({
-    super.key,
+    Key? key,
     required this.sender,
     required this.message,
-    required this.onClose,
-  });
+    this.expanded = false,
+    this.onRemove,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey.shade300),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.all(12),
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 24), // spazio per la X
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    sender,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    message,
-                    style: const TextStyle(fontSize: 13),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+    return Stack(
+      children: [
+        Container(
+          height: expanded ? null : 170,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey.shade300),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
               ),
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: GestureDetector(
-                onTap: onClose,
-                child: const Icon(
-                  Icons.close,
-                  size: 18,
-                  color: Colors.black54,
+            ],
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(Icons.notifications, color: Color(0xFF009E3D), size: 20),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      sender,
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      message,
+                      style: const TextStyle(fontSize: 13),
+                      maxLines: expanded ? null : 2,
+                      overflow: expanded ? TextOverflow.visible : TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+        if (expanded && onRemove != null)
+          Positioned(
+            top: 0,
+            right: 0,
+            child: IconButton(
+              icon: const Icon(Icons.close, size: 18),
+              onPressed: onRemove,
+            ),
+          ),
+      ],
     );
   }
 }
