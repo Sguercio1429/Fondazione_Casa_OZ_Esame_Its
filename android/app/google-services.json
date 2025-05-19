@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "342447108083",
+    "project_id": "esame-finale-its-flutter",
+    "storage_bucket": "esame-finale-its-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342447108083:android:eb680f8b058a00c513ec86",
+        "android_client_info": {
+          "package_name": "com.davideits.esamefinale"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSKo6qOzeI4xlX0zjyKVzpw6SvFWysBDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
